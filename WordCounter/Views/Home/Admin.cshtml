@@ -1,0 +1,50 @@
+﻿@model List<WordCounter.Models.DictEntry>
+
+@{
+    ViewData["Title"] = "Admin";
+    int numRow = 1;
+}
+
+<h3 style="color:darkblue;">@ViewData["Message"]</h3>
+
+@if (Model.Count > 0)
+{
+    //show all words from DB
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Word
+                </th>
+                <th>
+                    Total frecuency count
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => numRow)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Word)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Count)
+                    </td>
+                </tr>
+                numRow++;
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    // if DB is empty
+    <h3 style="color:brown;">There is not any statistical data yet. Visit Home link and fetch data from some website.</h3>
+}
