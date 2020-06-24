@@ -21,6 +21,8 @@ Release version of the app can be published on Azure from Visual Studio using it
 
 ![AppPict](https://github.com/PavelSobolev/TrustPower_exp/blob/master/WordCounter/a1.png)
 <hr />
+
 ![AppPict](https://github.com/PavelSobolev/TrustPower_exp/blob/master/WordCounter/a2.png)
 <hr />
+
 ![AppPict](https://github.com/PavelSobolev/TrustPower_exp/blob/master/WordCounter/a3.png)
