@@ -31,21 +31,18 @@ namespace WordCounter
             });
 
             // choose appropriate connection string
-            //switch (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"))
-            //{
-            //    case "Production":
-            //        services.AddDbContext<DictContext>(options =>
-            //            options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
-            //        break;
-            //    case "Development":
-            //        services.AddDbContext<DictContext>(options =>
-            //            options.UseSqlServer(Configuration.GetConnectionString("SrvConnection")));
-            //        break;
-            //}
-
-            services.AddDbContext<DictContext>(options =>
+            switch (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"))
+            {
+                case "Production":
+                    services.AddDbContext<DictContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
-
+                    break;
+                case "Development":
+                    services.AddDbContext<DictContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("SrvConnection")));
+                    break;
+            }
+            
             // set up service UrlWordsParserService for dependency injection 
             services.AddTransient<IWordsService, UrlWordsParserService>();
 
