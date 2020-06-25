@@ -6,7 +6,7 @@ namespace WordCounter.Services
     /// <summary>
     /// Creates salted hash for specified word
     /// </summary>
-    static class SaltHash
+    public static class SaltHash
     {
         /// <summary>
         /// Creates a salt with specified length
@@ -33,7 +33,7 @@ namespace WordCounter.Services
         /// <param name="hashLength"></param>
         /// <param name="NumberOfHashIterations"></param>
         /// <returns></returns>
-        public static string SaltedHash(string word, int saltLength, int hashLength, int NumberOfHashIterations)
+        public static string GetSaltedHash(string word, int saltLength, int hashLength, int NumberOfHashIterations)
         {
             // check values (limitations are set according to official documentation (NSDN))
             if (saltLength < 8) return string.Empty;

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordCounter", "WordCounter\WordCounter.csproj", "{892BF450-12FB-4C45-876D-326C5847751A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordCounter", "WordCounter\WordCounter.csproj", "{892BF450-12FB-4C45-876D-326C5847751A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestWordCounter", "XUnitTestWordCounter\XUnitTestWordCounter.csproj", "{AEAB1AB5-CCDD-4E4A-AD72-D019BEC31A0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{892BF450-12FB-4C45-876D-326C5847751A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{892BF450-12FB-4C45-876D-326C5847751A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{892BF450-12FB-4C45-876D-326C5847751A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEAB1AB5-CCDD-4E4A-AD72-D019BEC31A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEAB1AB5-CCDD-4E4A-AD72-D019BEC31A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEAB1AB5-CCDD-4E4A-AD72-D019BEC31A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEAB1AB5-CCDD-4E4A-AD72-D019BEC31A0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -33,8 +33,14 @@ namespace WordCounter.Services
         /// <returns></returns>
         public List<DictEntry> BuildDictionary(string Url, int listLength = 100)
         {
+            if (listLength <= 0)
+                throw new ArgumentException($"{listLength} is not valid value (positive integer is required).");
+
             // get text of the website (from its Url)
             string inText = StripHtmlFromUrlContent(Url);
+
+            if (inText.Length == 0)
+                return new List<DictEntry>();
 
             // build a list of words from inText
             List<string> wordsList = new List<string>(
@@ -56,7 +62,7 @@ namespace WordCounter.Services
                     {
                         DictEntry de = new DictEntry()
                         {
-                            Id = SaltHash.SaltedHash(normWord, SaltLength, HashLength, HashIterations),
+                            Id = SaltHash.GetSaltedHash(normWord, SaltLength, HashLength, HashIterations),
                             Count = 1,
                             Word = normWord
                         };
@@ -80,7 +86,7 @@ namespace WordCounter.Services
         /// </summary>
         /// <param name="Url">Input string with resource address</param>
         /// <returns>Text of the website without HTML</returns>
-        public string StripHtmlFromUrlContent(string Url)
+        private string StripHtmlFromUrlContent(string Url)
         {
             // create obj HtmlWeb from HtmlAgilityPack library
             HtmlWeb web = new HtmlWeb();
