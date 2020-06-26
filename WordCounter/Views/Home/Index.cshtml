@@ -10,72 +10,73 @@
     Random rnd = new Random();
 }
 
+    <div style="width:100%; margin-top:30px;">
 
-<div style="width:100%; margin-top:30px;">
+        <form onsubmit="submiClick();" asp-controller="Home" asp-action="Index" method="post">
+            <label for="url">URL</label>
+            <input style="width:50%" id="urlInput" type="url" name="url" placeholder="@placeHolder" value="@inputVal" />
+            <input id="cloudBtn" style="" type="submit" name="fetch" value="Get word cloud" />
+        </form>
 
-    <form asp-controller="Home" asp-action="Index" method="post">
-        <label for="url">URL</label>
-        <input style="width:50%" type="url" name="url" placeholder="@placeHolder" value="@inputVal" />
-        <input type="submit" name="fetch" value="Build words cloud" />
-    </form>
+        <h5 id="cloudLabel"></h5>
 
-
-    @if (Model.Url.Length > 0) // if non-empty URL was received
-    {
-        @if (Model.WordList.Count > 0) // if list contains words
+        @if (Model.Url.Length > 0) // if non-empty URL was received
         {
-            <h4 style="width:80%;">Word cloud for <span style="color:darkolivegreen">@Model.Url</span></h4>
-
-            // calculations for determining of sizes of words in the cloud
-            int maxCount = Model.WordList.Max(entry => entry.Count);
-            int minCount = Model.WordList.Min(entry => entry.Count);
-
-            //array of sizes
-            string[] FontSize = { "10px", "15px", "20px", "25px", "30px", "35px", "40px", "45px" };
-            //{ "xx-small", "small", "large", "xx-large" };
-
-            // coefficient which is used to determine appropriate index of word in FontSize array
-            double scaleUnitLength = (maxCount - minCount + 1) / (double)FontSize.Length;
-
-            // shuffle ordered dictionary 
-            // by using hashset of randomly distributed indices 
-            HashSet<int> randomIndex = new HashSet<int>();
-            while(randomIndex.Count<Model.WordList.Count)
+            @if (Model.WordList.Count > 0) // if list contains words
             {
-                randomIndex.Add(rnd.Next(0, Model.WordList.Count));
-            }
+                <script>
+                    document.getElementById("cloudLabel").innerHtml = "Word cloud for webpage " + @Model.Url;
+                </script>
 
-            <div class="cloud">
-                @foreach (int index in randomIndex) //traverse the set of random indices
+                // calculations for determining of sizes of words in the cloud
+                int maxCount = Model.WordList.Max(entry => entry.Count);
+                int minCount = Model.WordList.Min(entry => entry.Count);
+
+                //array of sizes
+                string[] FontSize = { "10px", "15px", "20px", "25px", "30px", "35px", "40px", "45px" };
+
+                // coefficient which is used to determine appropriate index of word in FontSize array
+                double scaleUnitLength = (maxCount - minCount + 1) / (double)FontSize.Length;
+
+                // shuffle ordered dictionary
+                // by using hashset of randomly distributed indices
+                HashSet<int> randomIndex = new HashSet<int>();
+                while (randomIndex.Count < Model.WordList.Count)
                 {
-                    // get a word from the model for current index
-                    int count = Model.WordList[index].Count;
-                    string word = Model.WordList[index].Word;
-
-                    // calculate an index in  FontSize array
-                    int sizeIndex = Convert.ToInt32((count - minCount) / scaleUnitLength);
-                    sizeIndex = (sizeIndex <= FontSize.Length - 1) ? sizeIndex : FontSize.Length - 1;
-                    string size = FontSize[sizeIndex];
-
-                    // get random color
-                    int r = rnd.Next(0, 256);
-                    int g = rnd.Next(0, 256);
-                    int b = rnd.Next(0, 256);
-                    string color = $"rgb({r},{g},{b})";
-
-                    
-                    <span class="word" style="font-size:@size; color:@color;" title="number of words: @count">
-                        @word
-                    </span>
+                    randomIndex.Add(rnd.Next(0, Model.WordList.Count));
                 }
-            </div>
-        }
-        else
-        {
-            <h3 style="color:darkred">
-                Web page <strong>'@Model.Url'</strong> is empty or this address does not exist.
-            </h3>
-        }
-    }
 
-</div>
+                <div id="cloud" class="cloud">
+                    @foreach (int index in randomIndex) //traverse the set of random indices
+                    {
+                        // get a word from the model for current index
+                        int count = Model.WordList[index].Count;
+                        string word = Model.WordList[index].Word;
+
+                        // calculate an index in  FontSize array
+                        int sizeIndex = Convert.ToInt32((count - minCount) / scaleUnitLength);
+                        sizeIndex = (sizeIndex <= FontSize.Length - 1) ? sizeIndex : FontSize.Length - 1;
+                        string size = FontSize[sizeIndex];
+
+                        // get random color
+                        int r = rnd.Next(0, 256);
+                        int g = rnd.Next(0, 256);
+                        int b = rnd.Next(0, 256);
+                        string color = $"rgb({r},{g},{b})";
+
+
+                        <span class="word" style="font-size:@size; color:@color;" title="number of words: @count">
+                            @word
+                        </span>
+                    }
+                </div>
+            }
+            else
+            {
+                <h3 id="errorMsg" style="color:darkred">
+                    Web page <strong>'@Model.Url'</strong> is empty or this address does not exist.
+                </h3>
+            }
+        }
+
+    </div>

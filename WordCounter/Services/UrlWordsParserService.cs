@@ -23,7 +23,7 @@ namespace WordCounter.Services
         // these words are ignored
         private  readonly List<string> NonInformative = new List<string>(new string[] {
             "the", "a", "to", "in", "of", "for", "and", "or", "at", "on", "up", "by", "as", "an", 
-            "has", "have", "is", "are", "can", "may", "must", "were", "was", "been", "be" });
+            "has", "have", "is", "are", "can", "may", "must", "were", "was", "been", "be", "am"});
 
 
         /// <summary>

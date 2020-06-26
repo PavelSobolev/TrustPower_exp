@@ -1,4 +1,19 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿const submiClick = () => {
 
-// Write your JavaScript code.
+    const val = new String(document.getElementById("urlInput").value);
+
+    if (val.length !== 0) {
+
+        if (document.getElementById("cloud") !== null)
+            document.getElementById("cloud").innerText = "Wait please.We are building a new word cloud for this website.";
+        else
+            document.getElementById("cloudLabel").innerText = "Wait please.We are building a new word cloud for this website.";
+    }
+    else {
+        document.getElementById("cloudLabel").innerText = "";
+    }
+
+    if (document.getElementById("errorMsg") !== null) {
+        document.getElementById("errorMsg").innerText = "";
+    }
+};
