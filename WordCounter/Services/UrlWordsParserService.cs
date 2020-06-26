@@ -21,9 +21,10 @@ namespace WordCounter.Services
         private const int HashIterations = 100;
 
         // these words are ignored
-        private  readonly List<string> NonInformative = new List<string>(new string[] {
-            "the", "a", "to", "in", "of", "for", "and", "or", "at", "on", "up", "by", "as", "an", 
-            "has", "have", "is", "are", "can", "may", "must", "were", "was", "been", "be", "am"});
+        private readonly List<string> NonInformative = new List<string>(new string[] {
+            "the", "a", "to", "in", "of", "for", "and", "or", "at", "on", "up", "by", "as", "an",
+            "has", "have", "is", "are", "can", "may", "must", "were", "was", "been", "be", "am",
+            "with","it","this","that","from","i","you","she","he","his","her","these","those", "if"});
 
 
         /// <summary>
@@ -163,7 +164,7 @@ namespace WordCounter.Services
         /// <returns>Simple alpanumeris string</returns>
         private string RemovePunct(string remStr)
         {
-            string res = Regex.Replace(remStr, @"[.,;:""(){}\[\]!?~`@#$%^&*()_\-+=/\\|]+",
+            string res = Regex.Replace(remStr, @"[.,;:""(){}\[\]!?~`@#$%^&*()_\-–+=/\\|]+",
                 "",
                 RegexOptions.Singleline).Trim('\'').Trim();
             return res;
