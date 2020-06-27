@@ -17,11 +17,13 @@ namespace WordCounter.Contexts
         /// This is the set of words in the DB
         /// </summary>
         public DbSet<DictEntry> Words { get; set; }
+        public DbSet<IgnoredWordModel> IgnoredWords { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // set name of table in the DB
+            // set names of tables in the DB
             modelBuilder.Entity<DictEntry>().ToTable("Words");
+            modelBuilder.Entity<IgnoredWordModel>().ToTable("IgnoredWords");
         }
     }
 }

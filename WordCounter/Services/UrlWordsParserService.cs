@@ -21,24 +21,25 @@ namespace WordCounter.Services
         private const int HashIterations = 100;
 
         // these words are ignored
-        private readonly List<string> NonInformative = new List<string>(new string[] {
-            "the", "a", "to", "in", "of", "for", "and", "or", "at", "on", "up", "by", "as", "an",
-            "has", "have", "is", "are", "can", "may", "must", "were", "was", "been", "be", "am",
-            "with","it","this","that","from","i","you","she","he","his","her","these","those", "if"});
+        private IEnumerable<string> _nonInformative;
 
 
         /// <summary>
-        /// Build sorted list of words entries 
+        /// Build sorted list of words entries
         /// </summary>
-        /// <param name="inText"></param>
-        /// <returns></returns>
-        public List<DictEntry> BuildDictionary(string Url, int listLength = 100)
+        /// <param name="url">Web adress of the word source</param>
+        /// <param name="nonInformative">list of words which should not be counted</param>
+        /// <param name="listLength">lenght of resulted list</param>
+        /// <returns>sorted list of listLength words from url</returns>
+        public List<DictEntry> BuildDictionary(string url, IEnumerable<string> nonInformative, int listLength = 100)
         {
             if (listLength <= 0)
                 throw new ArgumentException($"{listLength} is not valid value (positive integer is required).");
 
+            _nonInformative = nonInformative;
+
             // get text of the website (from its Url)
-            string inText = StripHtmlFromUrlContent(Url);
+            string inText = StripHtmlFromUrlContent(url);
 
             if (inText.Length == 0)
                 return new List<DictEntry>();
@@ -140,7 +141,7 @@ namespace WordCounter.Services
             if (txt.Length == 0) return false;
 
             // check for presence in the list of ignored words
-            if (NonInformative.Contains(txt)) return false;
+            if (_nonInformative.Contains(txt)) return false;
 
             double resNum = 0.0; // check for a number
             if (double.TryParse(txt, out resNum)) return false;
@@ -160,12 +161,13 @@ namespace WordCounter.Services
         /// <summary>
         /// RemovePunct removes symbols which are non-alpanumeric characters.
         /// </summary>
-        /// <param name="remStr">Input text</param>
+        /// <param name="inputString">Input text</param>
         /// <returns>Simple alpanumeris string</returns>
-        private string RemovePunct(string remStr)
+        private string RemovePunct(string inputString)
         {
-            string res = Regex.Replace(remStr, @"[.,;:""(){}\[\]!?~`@#$%^&*()_\-–+=/\\|]+",
-                "",
+            string charsToRemove = @"[.,;:""(){}\[\]!?~`@#$%^&*()_\-–+=/\\|]+";
+
+            string res = Regex.Replace(inputString, charsToRemove,"",
                 RegexOptions.Singleline).Trim('\'').Trim();
             return res;
         }

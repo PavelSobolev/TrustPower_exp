@@ -41,10 +41,11 @@ namespace WordCounter
                     services.AddDbContext<DictContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("SrvConnection")));
                     break;
+                default:
+                    services.AddDbContext<DictContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
+                    break;
             }
-
-            //services.AddDbContext<DictContext>(options =>
-             //           options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
 
             // set up service UrlWordsParserService for dependency injection 
             services.AddTransient<IWordsService, UrlWordsParserService>();

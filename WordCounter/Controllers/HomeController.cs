@@ -56,7 +56,9 @@ namespace WordCounter.Controllers
             //var Url = "https://www.stuff.co.nz"; // "https://www.tvnz.co.nz/one-news";
 
             // build dictionary of MaxWords top words
-            List<DictEntry> wordList = _wordsUrlParser.BuildDictionary(Url, MaxWords);
+            List<string> ignoredList = _dictContext.IgnoredWords.Select(entry => entry.Word).ToList();
+
+            List<DictEntry> wordList = _wordsUrlParser.BuildDictionary(Url, ignoredList, MaxWords);
 
             // send data to the database
             InsertOrUpdateWords(wordList);
@@ -102,7 +104,6 @@ namespace WordCounter.Controllers
             // select all the records from table containing words from visited websites
             return View(_dictContext.Words.OrderByDescending(entry => entry.Count).ToList());
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

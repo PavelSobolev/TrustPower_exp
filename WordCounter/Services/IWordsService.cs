@@ -8,6 +8,13 @@ namespace WordCounter.Services
     /// </summary>
     public interface IWordsService
     {
-        List<DictEntry> BuildDictionary(string inText, int listLength);
+        /// <summary>
+        /// Method  returns a list of words (of specified length) containing words from specified source 
+        /// </summary>
+        /// <param name="sourceAddress">address of data source in string format</param>
+        /// <param name="nonInformative">list of ignored words</param>
+        /// <param name="listLength">length of list</param>
+        /// <returns>list of words</returns>
+        List<DictEntry> BuildDictionary(string sourceAddress, IEnumerable<string> nonInformative, int listLength);
     }
 }
